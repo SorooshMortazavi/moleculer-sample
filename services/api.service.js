@@ -1,4 +1,9 @@
 "use strict";
+const dns = require("dns");
+
+// Set default result order for DNS resolution
+dns.setDefaultResultOrder("ipv4first");
+
 
 const ApiGateway = require("moleculer-web");
 const path = require("path");
@@ -59,7 +64,7 @@ module.exports = {
 			caseSensitive: false,
 			trustProxy: true,
 			logger: true,
-		});
+		})
 		this.ip = process.env.IP;
 		this.port = process.env.PORT;
 
@@ -88,21 +93,19 @@ module.exports = {
 	},
 
 	async started() {
-		const dns = require("dns");
 
-		// Set default result order for DNS resolution
-		dns.setDefaultResultOrder("ipv4first");
 
 		const app = this.fastify;
 		console.log({ port: process.env.PORT, host: this.settings.ip });
 		try {
-			app.listen(
+			await app.listen(
 				{
 					port: process.env.PORT,
 					 host: process.env.IP
 				},
 				(err, address) => {
 					app.log.info(`👍 server is listening on ${address}`);
+					console.log(err)
 				}
 			);
 		} catch (error) {

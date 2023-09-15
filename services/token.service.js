@@ -43,15 +43,15 @@ module.exports = {
 			handler: async (ctx) => {
 				const { userId, token, loggedIn } = ctx.params;
 				return await Token.findOneAndUpdate(
-					{ userId: userId },
-					{ loggedIn: loggedIn, token: token },
-					{ new: true, upsert: true }
+					{ userId: userId},
+					{ loggedIn: loggedIn, token: token},
+					{ upsert:true,new:true }
 				);
 			},
 		},
 		checkTokenCredit: {
 			cache:true,
-			ttl:300,
+			ttl:3,
 			handler: async (ctx) => {
 				const {token} = ctx.params;
 				const result = await Token.findOne({

@@ -7,7 +7,7 @@ const authRoutes = async function (fastify, options) {
   fastify.route({
     method: ["GET"],
     url: "/auth/logout",
-    preHandler: AuthenticationMiddleware,
+    preHandler: AuthenticationMiddleware(broker),
     handler: (request, reply) => { return broker.call("v1.auth.logout", { request, reply }) }
   })
 }

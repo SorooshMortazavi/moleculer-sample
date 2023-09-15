@@ -19,10 +19,10 @@ const getTokenFromHeaders = async (request) => {
 }
 
 // check provided token if it is a valid or not
-const getCurrentUserId = ({ token }) => jwt.verify(token, process.env.JWT_SECRET);
+const getCurrentUserPayload = ({ token }) => jwt.verify(token, process.env.JWT_SECRET);
 
 module.exports = {
   generateJwtToken,
   getTokenFromHeaders,
-  getCurrentUserId
+  getCurrentUserPayload
 }

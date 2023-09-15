@@ -52,7 +52,7 @@ module.exports = {
 				console.log("LOGIN SERVICE");
 				const { request, reply } = ctx.params;
 				const { email, password } = request.body;
-				const user = await ctx.call("v1.user.findOne", { email });
+				const user = await ctx.call("v1.user._findOne", { email });
 				if (!user) {
 					throw new BadRequestError(
 						"User not found",
@@ -108,16 +108,15 @@ module.exports = {
 
 		// Logout
 		logout: {
-			cache: true,
+			cache: false,
 			handler: async (ctx) => {
 				const { request, reply } = ctx.params;
-				const token = await getTokenFromHeaders(request);
-
+				console.log("bbbbbbbbbbbbbbb",request.currentUserId,request.token)
 				// update token state
 				const tokenObj = await ctx.call("v1.token.findAndUpdateToken", {
-					userId: user._id,
+					userId: request.currentUserId,
 					loggedIn: false,
-					token: token,
+					token: request.token,
 				});
 
 				const response = { user: null, token: tokenObj.token };

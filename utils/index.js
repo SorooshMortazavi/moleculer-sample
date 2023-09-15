@@ -1,7 +1,7 @@
 const {
 	generateJwtToken,
 	getTokenFromHeaders,
-	getCurrentUserId,
+	getCurrentUserPayload,
 } = require("./jwt-helper");
 
 const {sendResponse} = require("./send-response")
@@ -9,6 +9,6 @@ const {sendResponse} = require("./send-response")
 module.exports = {
 	generateJwtToken,
 	getTokenFromHeaders,
-	getCurrentUserId,
+	getCurrentUserPayload,
 	sendResponse
 };
